@@ -57,6 +57,13 @@ class UserCreate(SQLModel):
     email: EmailStr = Field(max_length=255)
     password: str = Field(min_length=8, max_length=128)
 
+class CategoryCreate(SQLModel):
+    text: str
+
+class CategoryResponse(SQLModel):
+    id: Optional[int] = Field(primary_key=True, default=None)
+    text: str
+
 class TodoCreate(SQLModel):
     text:str
 
@@ -64,6 +71,7 @@ class TodoResponse(SQLModel):
     id: Optional[int] = Field(primary_key=True, default=None)
     text:str
     done: bool = False
+    categories: list[CategoryResponse] = Field(default_factory=list)
 
 class TodoUpdate(SQLModel):
     text: Optional[str] = None
